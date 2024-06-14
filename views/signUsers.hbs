@@ -1,0 +1,32 @@
+{{>nav}}
+
+<main class="container">
+    <article>
+        <header>
+            <h3>Cadastrar Usuários</h3>
+        </header>
+        <form action="/signUsers" method="POST">
+            <label>
+                Usuário
+                <input type="text" placeholder="Usuário" required name="user">
+            </label>
+            <div class="grid">
+                <div>
+                    <label>
+                        Senha
+                        <input type="password" placeholder="Senha" required name="password">
+                    </label>
+                </div>
+                <div>
+                    <label>
+                        Confirma a senha
+                        <input type="password" placeholder="Confirma a senha" required name="password1">
+                    </label>
+                </div>
+            </div>
+            <input type="submit" value="Cadastrar">
+        </form>
+    </article>
+</main>
+
+{{>footer}}

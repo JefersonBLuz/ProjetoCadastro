@@ -1,0 +1,663 @@
+[
+    {
+        "id": "9fcc9fdf18948197",
+        "type": "tab",
+        "label": "Grafana",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "c16cbd68df48bcd5",
+        "type": "comment",
+        "z": "9fcc9fdf18948197",
+        "name": "Dados Real time",
+        "info": "",
+        "x": 140,
+        "y": 580,
+        "wires": []
+    },
+    {
+        "id": "9d12f7ba60c7c873",
+        "type": "function",
+        "z": "9fcc9fdf18948197",
+        "name": "Consulta e Grava Dados",
+        "func": "global.set(\"DADOS_Atual\", msg.payload)\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 530,
+        "y": 620,
+        "wires": [
+            [
+                "823f5493579b9149"
+            ]
+        ]
+    },
+    {
+        "id": "2e2e6fb2977b8be5",
+        "type": "http in",
+        "z": "9fcc9fdf18948197",
+        "name": "Consulta DADOS_1",
+        "url": "topic1",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 150,
+        "y": 680,
+        "wires": [
+            [
+                "569a1f962ff7c6be"
+            ]
+        ]
+    },
+    {
+        "id": "569a1f962ff7c6be",
+        "type": "function",
+        "z": "9fcc9fdf18948197",
+        "name": "Envia DADOS para Grafana",
+        "func": "var vartemp=global.get(\"DADOS_Atual\")//\n\nmsg.payload=vartemp\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 540,
+        "y": 680,
+        "wires": [
+            [
+                "09d5d4bb0b027fbb",
+                "823f5493579b9149"
+            ]
+        ]
+    },
+    {
+        "id": "09d5d4bb0b027fbb",
+        "type": "http response",
+        "z": "9fcc9fdf18948197",
+        "name": "DADOS",
+        "statusCode": "",
+        "headers": {},
+        "x": 1100,
+        "y": 680,
+        "wires": []
+    },
+    {
+        "id": "823f5493579b9149",
+        "type": "debug",
+        "z": "9fcc9fdf18948197",
+        "name": "debug 5",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1020,
+        "y": 620,
+        "wires": []
+    },
+    {
+        "id": "af256e40b40589e8",
+        "type": "inject",
+        "z": "9fcc9fdf18948197",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "5",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "5",
+        "payloadType": "num",
+        "x": 130,
+        "y": 60,
+        "wires": [
+            [
+                "bdc743b275d70120"
+            ]
+        ]
+    },
+    {
+        "id": "bdc743b275d70120",
+        "type": "join",
+        "z": "9fcc9fdf18948197",
+        "name": "",
+        "mode": "custom",
+        "build": "array",
+        "property": "payload",
+        "propertyType": "msg",
+        "key": "topic",
+        "joiner": "\\n",
+        "joinerType": "str",
+        "accumulate": false,
+        "timeout": "",
+        "count": "10",
+        "reduceRight": false,
+        "reduceExp": "",
+        "reduceInit": "",
+        "reduceInitType": "",
+        "reduceFixup": "",
+        "x": 320,
+        "y": 140,
+        "wires": [
+            [
+                "fd50ee92aaa5f54a",
+                "be1c06717b24d7f3"
+            ]
+        ]
+    },
+    {
+        "id": "fd50ee92aaa5f54a",
+        "type": "function",
+        "z": "9fcc9fdf18948197",
+        "name": "Prepara dados para publicação MQTT",
+        "func": "var time=Date.now()\nmsg.topic=\"DADOS\";\nmsg.payload = { \"INFO 1.1\": msg.payload[0], \"INFO 1.2\": msg.payload[1], \"INFO 1.3\": msg.payload[2], \"INFO 1.4\": msg.payload[3], \"INFO 1.5\": msg.payload[4]};\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 570,
+        "y": 140,
+        "wires": [
+            [
+                "e3276d9f7b563adb",
+                "4681d380c29b85f7"
+            ]
+        ]
+    },
+    {
+        "id": "b22a305ef0b9a886",
+        "type": "inject",
+        "z": "9fcc9fdf18948197",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "5",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "57",
+        "payloadType": "num",
+        "x": 130,
+        "y": 100,
+        "wires": [
+            [
+                "bdc743b275d70120"
+            ]
+        ]
+    },
+    {
+        "id": "81a4c8bb686d4601",
+        "type": "inject",
+        "z": "9fcc9fdf18948197",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "5",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "65",
+        "payloadType": "num",
+        "x": 130,
+        "y": 140,
+        "wires": [
+            [
+                "bdc743b275d70120"
+            ]
+        ]
+    },
+    {
+        "id": "69d7a2432f7fca37",
+        "type": "inject",
+        "z": "9fcc9fdf18948197",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "5",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "82",
+        "payloadType": "num",
+        "x": 130,
+        "y": 180,
+        "wires": [
+            [
+                "bdc743b275d70120"
+            ]
+        ]
+    },
+    {
+        "id": "8a04edc7b7e8bf44",
+        "type": "inject",
+        "z": "9fcc9fdf18948197",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "5",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "120",
+        "payloadType": "num",
+        "x": 130,
+        "y": 220,
+        "wires": [
+            [
+                "bdc743b275d70120"
+            ]
+        ]
+    },
+    {
+        "id": "9a7e6461b9894fd3",
+        "type": "inject",
+        "z": "9fcc9fdf18948197",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "5",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "167",
+        "payloadType": "num",
+        "x": 130,
+        "y": 260,
+        "wires": [
+            [
+                "bdc743b275d70120"
+            ]
+        ]
+    },
+    {
+        "id": "2a472f98bdb2e755",
+        "type": "inject",
+        "z": "9fcc9fdf18948197",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "5",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "189",
+        "payloadType": "num",
+        "x": 130,
+        "y": 300,
+        "wires": [
+            [
+                "bdc743b275d70120"
+            ]
+        ]
+    },
+    {
+        "id": "ef98c322bfd2f17b",
+        "type": "inject",
+        "z": "9fcc9fdf18948197",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "5",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "190",
+        "payloadType": "num",
+        "x": 130,
+        "y": 340,
+        "wires": [
+            [
+                "bdc743b275d70120"
+            ]
+        ]
+    },
+    {
+        "id": "85ac2b91a33808fe",
+        "type": "inject",
+        "z": "9fcc9fdf18948197",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "5",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "32",
+        "payloadType": "num",
+        "x": 130,
+        "y": 380,
+        "wires": [
+            [
+                "bdc743b275d70120"
+            ]
+        ]
+    },
+    {
+        "id": "b18cb78c44484c69",
+        "type": "inject",
+        "z": "9fcc9fdf18948197",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "5",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "44",
+        "payloadType": "num",
+        "x": 130,
+        "y": 420,
+        "wires": [
+            [
+                "bdc743b275d70120"
+            ]
+        ]
+    },
+    {
+        "id": "e3276d9f7b563adb",
+        "type": "debug",
+        "z": "9fcc9fdf18948197",
+        "name": "debug 6",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 880,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "4681d380c29b85f7",
+        "type": "mqtt out",
+        "z": "9fcc9fdf18948197",
+        "name": "DADOS IOT_1",
+        "topic": "TOPIC1",
+        "qos": "0",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "a4dafc0d3ba968a6",
+        "x": 900,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "99be91ee98db6e04",
+        "type": "mqtt in",
+        "z": "9fcc9fdf18948197",
+        "name": "DADOS IOT_1",
+        "topic": "TOPIC1",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "a4dafc0d3ba968a6",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 140,
+        "y": 620,
+        "wires": [
+            [
+                "9d12f7ba60c7c873"
+            ]
+        ]
+    },
+    {
+        "id": "be1c06717b24d7f3",
+        "type": "function",
+        "z": "9fcc9fdf18948197",
+        "name": "Prepara dados para publicação MQTT",
+        "func": "var time=Date.now()\nmsg.topic=\"DADOS\";\nmsg.payload = { \"INFO 2.1\": msg.payload[5], \"INFO 2.2\": msg.payload[6], \"INFO 2.3\": msg.payload[7], \"INFO 2.4\": msg.payload[8], \"INFO 2.5\": msg.payload[9]};\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 570,
+        "y": 280,
+        "wires": [
+            [
+                "0299c12007a88d4f",
+                "4786d8890fd7bf80"
+            ]
+        ]
+    },
+    {
+        "id": "0299c12007a88d4f",
+        "type": "debug",
+        "z": "9fcc9fdf18948197",
+        "name": "debug 7",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 880,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "4786d8890fd7bf80",
+        "type": "mqtt out",
+        "z": "9fcc9fdf18948197",
+        "name": "DADOS IOT 2",
+        "topic": "TOPIC2",
+        "qos": "0",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "a4dafc0d3ba968a6",
+        "x": 900,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "e5895ec7b66cdc8a",
+        "type": "comment",
+        "z": "9fcc9fdf18948197",
+        "name": "Dados Real time",
+        "info": "",
+        "x": 140,
+        "y": 740,
+        "wires": []
+    },
+    {
+        "id": "ff136c1477691d8a",
+        "type": "function",
+        "z": "9fcc9fdf18948197",
+        "name": "Consulta e Grava Dados",
+        "func": "global.set(\"DADOS_Atual_2\", msg.payload)\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 530,
+        "y": 780,
+        "wires": [
+            [
+                "b11469e8ce43c4d9"
+            ]
+        ]
+    },
+    {
+        "id": "6728cde0942b04ef",
+        "type": "http in",
+        "z": "9fcc9fdf18948197",
+        "name": "Consulta DADOS_2",
+        "url": "topic2",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 150,
+        "y": 840,
+        "wires": [
+            [
+                "42b15b77ace63401"
+            ]
+        ]
+    },
+    {
+        "id": "42b15b77ace63401",
+        "type": "function",
+        "z": "9fcc9fdf18948197",
+        "name": "Envia DADOS para Grafana",
+        "func": "var vartemp=global.get(\"DADOS_Atual_2\")//\n\nmsg.payload=vartemp\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 540,
+        "y": 840,
+        "wires": [
+            [
+                "d740a53e3816b100",
+                "b11469e8ce43c4d9"
+            ]
+        ]
+    },
+    {
+        "id": "d740a53e3816b100",
+        "type": "http response",
+        "z": "9fcc9fdf18948197",
+        "name": "DADOS",
+        "statusCode": "",
+        "headers": {},
+        "x": 1100,
+        "y": 840,
+        "wires": []
+    },
+    {
+        "id": "b11469e8ce43c4d9",
+        "type": "debug",
+        "z": "9fcc9fdf18948197",
+        "name": "debug 8",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1020,
+        "y": 780,
+        "wires": []
+    },
+    {
+        "id": "c027cf87d4cecf22",
+        "type": "mqtt in",
+        "z": "9fcc9fdf18948197",
+        "name": "DADOS IOT_2",
+        "topic": "TOPIC2",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "a4dafc0d3ba968a6",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 140,
+        "y": 780,
+        "wires": [
+            [
+                "ff136c1477691d8a"
+            ]
+        ]
+    },
+    {
+        "id": "a4dafc0d3ba968a6",
+        "type": "mqtt-broker",
+        "name": "",
+        "broker": "670adc2fa7c04f4b91cf1352b50c7e51.s1.eu.hivemq.cloud",
+        "port": "8883",
+        "tls": "",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": true,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "autoUnsubscribe": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthRetain": "false",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closeRetain": "false",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willRetain": "false",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    }
+]

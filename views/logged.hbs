@@ -1,0 +1,59 @@
+{{>nav}}
+
+<main class="container">
+    <iframe title="tcc" width="100%" height="890px"
+        src="https://app.powerbi.com/view?r=eyJrIjoiOWY3YTNhNDQtN2M1Yi00Yzc2LTg1ZTAtZDUzNjU2NzJiOTJiIiwidCI6IjE0YzI4YjJiLWViMDQtNDdlMy1iMjkxLWU0Zjk0YmYwMDQ1NiJ9&pageName=ReportSection"
+        frameborder="0" allowFullScreen="true"></iframe>
+    <hr noshade="">
+    <h1>Familias</h1>
+    <hr noshade="">
+    <table>
+        <thead>
+            <tr>
+                <th scope="col">Nome</th>
+                <th scope="col">CPF</th>
+                <th scope="col">QTD</th>
+                <th scope="col">Cep</th>
+                <th scope="col">Bairro</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each bds.families}}
+            <tr>
+                <td>{{nomeResponsavel}}</td>
+                <td>{{cpfResponsavel}}</td>
+                <td>{{quantidadeFamilia}}</td>
+                <td>{{cep}}</td>
+                <td>{{bairro}}</td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+
+    <hr noshade="">
+    <h1>Condutores</h1>
+    <hr noshade="">
+    <table>
+        <thead>
+            <tr>
+                <th scope="col">Condutor</th>
+                <th scope="col">CPF</th>
+                <th scope="col">CNH</th>
+                <th scope="col">Cep</th>
+                <th scope="col">Bairro</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each bds.drivers}}
+            <tr>
+                <td>{{nomeCondutor}}</td>
+                <td>{{cpfCondutor}}</td>
+                <td>{{cnh}}</td>
+                <td>{{cep}}</td>
+                <td>{{bairro}}</td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+</main>
+{{>footer}}

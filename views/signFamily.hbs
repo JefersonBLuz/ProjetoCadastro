@@ -1,0 +1,59 @@
+{{>nav}}
+
+<main class="container">
+    <article>
+        <header>
+            <h3>Cadastro Famílias</h3>
+        </header>
+        <form action="/signFamily" method="post" enctype="multipart/form-data">
+            <label>
+                Nome do responsável
+                <input type="text" placeholder="Nome" required name="nomeResponsavel">
+            </label>
+            <div class="grid">
+                <div>
+                    <label>
+                        CPF do responsável
+                        <input type="text" placeholder="CPF" required name="cpfResponsavel" maxlength="11">
+                    </label>
+                </div>
+                <div>
+                    <label>
+                        Tamanho da família
+                        <input type="number" placeholder="Número" required name="quantidadeFamilia">
+                    </label>
+                </div>
+            </div>
+            <label>
+                Bairro
+                <input type="text" placeholder="Bairro" required name="bairro">
+            </label>
+            <label>
+                Logradouro
+                <input type="text" placeholder="Rua/Avenida" required name="logradouro">
+            </label>
+            <div class="grid">
+                <div>
+                    <label>
+                        Número da Residência
+                        <input type="text" placeholder="Número" required name="numero">
+                    </label>
+                </div>
+                <div>
+                    <label>
+                        CEP
+                        <input type="text" placeholder="XXXXX-XXX" required name="cep" maxlength="8">
+                    </label>
+                </div>
+            </div>
+            <label>
+                Complemento
+                <textarea placeholder="Exemplo:Próximo de.../Casa azul..." name="complemento"></textarea>
+            </label>
+            <input id="formFileLg" type="file" name="imagem">
+            <input type="submit" value="Cadastrar">
+        </form>
+    </article>
+</main>
+
+{{>footer}}

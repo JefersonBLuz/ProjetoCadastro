@@ -1,0 +1,33 @@
+@import "https://www.nerdfonts.com/assets/css/webfont.css";
+
+a{
+    text-decoration: none;
+}
+hr{
+    height: 4px;
+    margin: 10px;
+    padding: 0px;
+}
+h1{
+    margin: 5px;
+    padding: 5px;
+    text-align: center;
+}
+.degrader{
+    padding: 0px;
+    margin: 0px;
+    background-image: linear-gradient(to right, #034e8f, #007fb5, #0098da);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: black;
+}
+.imglist{
+    height: 40px;
+}
+i{
+    cursor: pointer;
+}
+#theme{
+    cursor: pointer;
+}

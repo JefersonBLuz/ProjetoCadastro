@@ -1,0 +1,34 @@
+{{>nav}}
+
+<main class="container">
+    <form action="/search_drivers" method="post">
+        <input name="search" type="search" placeholder="Procure Caminhoneiros" />
+        <input type="submit" value="Procurar" />
+    </form>
+    <table>
+        <thead>
+            <tr>
+                <th scope="col">Nome</th>
+                <th scope="col">CPF</th>
+                <th scope="col">CNH</th>
+                <th scope="col">IMG</th>
+                <th scope="col">Editar</th>
+                <th scope="col">Excluir</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each post}}
+            <tr>
+                <td>{{nomeCondutor}}</td>
+                <td>{{cpfCondutor}}</td>
+                <td>{{cnh}}</td>
+                <td><img class="imglist" src="uploads/{{fileimg}}" alt=""></td>
+                <td><a href="/condutor/{{id}}"><i class="nf nf-fa-edit"></i></a></td>
+                <td><a href="/delete_condutor/{{id}}"><i class="nf nf-md-delete"></i></a></td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+</main>
+
+{{>footer}}
